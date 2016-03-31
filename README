@@ -1,0 +1,27 @@
+=== LocalFold ==================================================================
+
+LocalFold is a modification of the RNAplfold local folding algorithm.
+LocalFold only considers base-pairs centred within a window such that
+(i,j) are not located within the first and last positions of the window.
+
+Usage:
+
+localfold.pl -seqfile=FASTAFILE
+
+Options:
+
+    -seqfile        fasta file
+    -W              set window size to W (default: 200)
+    -L              compute only basepairs with maximal span L (default: 150)
+    -u              compute probabilities for regions of this length
+                    are unpaired (default: 1)
+    -skipbordernts  do not use the n first and last nucleotides of a window
+                    (default: 10)
+    -cutoff         report only probabilities > cutoff (default: 0)
+    -T              rescale energy parameters to a temperature (default 37C)
+    -noLP           run RNAplfold with option -noLP (no lonely base pairs)
+    -nodot          do not compute dotplots
+    -noacc          do not compute accessibilities
+    -debug          enable debug output
+    -help           brief help message
+    -man            full documentation
