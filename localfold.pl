@@ -75,7 +75,7 @@ my $stdT = 37;
 
 # check if RNAplfold is in PATH environment variable
 `RNAplfold --help 2>&1 /dev/null`;
-if ($? != 256) {
+if ($? != 256 && $? != 0) {
 	print STDERR "error: please ensure that RNAplfold is installed and in the current PATH\n";
 	exit;
 }
