@@ -13,4 +13,4 @@ script:
  - tar xvfz vienna_rna_1.8_src_all.tar.gz
  - cd ViennaRNA-1.8.5 && ./configure --prefix=$HOME/vienna --without-perl && make && make install
  - export PATH=$HOME/vienna/bin/:$PATH
- - cd $TRAVIS_BUILD_DIR && perl localfold.pl -h
+ - cd $TRAVIS_BUILD_DIR && perl localfold.pl -h 2>&1 | grep 'LocalFold is a modification of the RNAplfold local folding algorithm' 
