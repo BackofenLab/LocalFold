@@ -1,0 +1,16 @@
+sudo: false
+language: cpp
+
+os:
+  - linux
+
+compiler:
+  - gcc
+  
+script:
+ # download and compile ViennaRNA dependency
+ - wget https://depot.galaxyproject.org/software/vienna_rna/vienna_rna_1.8_src_all.tar.gz
+ - tar xvfz vienna_rna_1.8_src_all.tar.gz
+ - cd ViennaRNA-1.8.5 && ./configure --prefix=$HOME/vienna --without-perl && make && make install
+ - export PATH=$HOME/vienna/bin/:$PATH
+ - cd $TRAVIS_BUILD_DIR && perl localfold.pl -h
