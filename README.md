@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BackofenLab/LocalFold.svg?branch=master)](https://travis-ci.org/BackofenLab/LocalFold)
+
 # LocalFold
 LocalFold is a modification of the RNAplfold local folding algorithm. LocalFold only considers base-pairs centred within a window such that (i,j) are not located within the first and last positions of the windows. 
 
