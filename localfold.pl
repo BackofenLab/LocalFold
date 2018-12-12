@@ -299,9 +299,7 @@ sub callPlfold {
 	# compute pair probabilities and ensemble energies
 	print STDERR "calling RNAplfold:";
 	chdir $tmpdir;
-	my $tempstr="RNAplfold $noLP $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
-		"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out";
-	print STDERR $tempstr;
+
 	system("RNAplfold $noLP $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
 		"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out");
 
@@ -493,7 +491,7 @@ my $result = GetOptions (	"help"			=> \$help,
 							"noacc"			=> \$noacc,   
 							"debug"			=> \$debug,
 							"noLP"			=> \$noLP,
-							"P=s"           => \$P,
+							"P=s"             	=> \$P,
 							"T=f"			=> \$T);
 							
 							
