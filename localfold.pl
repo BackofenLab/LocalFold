@@ -31,6 +31,7 @@ Options:
     -cutoff         report only probabilities > cutoff (default: 0)
     -T              rescale energy parameters to a temperature (default 37C)
     -noLP           run RNAplfold with option -noLP (no lonely base pairs)
+    -P              run RNAplfold with option -P (read energy parameters from paramfile)
     -nodot          do not compute dotplots
     -noacc          do not compute accessibilities
     -debug          enable debug output
@@ -54,6 +55,7 @@ my $skipbordernts;
 my $cutoff;
 my $debug;
 my $noLP;		# RNAplfold option -noLP
+my $P;          # RNAplfold option -P (paramFile)
 my $T;
 
 # global vars
@@ -276,6 +278,13 @@ sub callPlfold {
 	} else {
 		$noLP = "";
 	}
+
+	if($P){
+		$P = "-P " . $P;
+	} else {
+		$P = "";
+	}
+	
 	
 	my $lastpos = length($fasta_seq)-$window;
 
@@ -290,8 +299,10 @@ sub callPlfold {
 	# compute pair probabilities and ensemble energies
 	print STDERR "calling RNAplfold:";
 	chdir $tmpdir;
-
-	system("RNAplfold $noLP -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
+	my $tempstr="RNAplfold $noLP $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
+		"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out";
+	print STDERR $tempstr;
+	system("RNAplfold $noLP $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
 		"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out");
 
 	chdir $currDir;
@@ -482,6 +493,7 @@ my $result = GetOptions (	"help"			=> \$help,
 							"noacc"			=> \$noacc,   
 							"debug"			=> \$debug,
 							"noLP"			=> \$noLP,
+							"P=s"           => \$P,
 							"T=f"			=> \$T);
 							
 							
