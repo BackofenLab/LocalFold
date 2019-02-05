@@ -279,13 +279,6 @@ sub callPlfold {
 		$noLP = "";
 	}
 
-	if($P){
-		$P = "-P " . $P;
-	} else {
-		$P = "";
-	}
-	
-	
 	my $lastpos = length($fasta_seq)-$window;
 
 	# create temporary fasta file containing all subsequences of size window
@@ -299,10 +292,13 @@ sub callPlfold {
 	# compute pair probabilities and ensemble energies
 	print STDERR "calling RNAplfold:";
 	chdir $tmpdir;
-
-	system("RNAplfold $noLP $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
-		"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out");
-
+	if ($P){
+		system("RNAplfold $noLP -P $P -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
+			"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out");
+	} else {
+		system("RNAplfold $noLP -c 0 -d2 -u $u -W $window -L $maxlenbp -T $T ".
+			"< $tmpdir/tmppl.fa > $tmpdir/ensenergy_wl.out");
+	}
 	chdir $currDir;
 	print STDERR " finished!\n";
 	
